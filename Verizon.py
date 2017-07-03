@@ -10,7 +10,7 @@ k=200
 n=50
 
 #reading the house data
-f = open('/Users/rajan/Downloads/houses.csv','r')
+f = open('houseList.csv','r')
 reader = csv.reader(f)
 for row in reader:
 #    print(row)
@@ -18,7 +18,7 @@ for row in reader:
 f.close()
 
 #reading the antenna data
-f = open('/Users/rajan/Downloads/antennas.csv','r')
+f = open('antennaLocations1.csv','r')
 reader = csv.reader(f)
 for row in reader:
 #    print(row)
@@ -38,6 +38,9 @@ for row in ant_data:
 
 
 
+
+
+
 #generate seeds
 def seed_gen(k):
     random.shuffle(house_data)
@@ -51,6 +54,7 @@ cnt =1
 while(cnt <n):
 
     clusters =[]
+    clustdist = dict.fromkeys(seeds, [])
 
     for i in range(k):
             add_cl = []
@@ -63,6 +67,11 @@ while(cnt <n):
             for i in range(len(seeds)):
                 #print(seeds[j][2])
                 dist = pow(float(seeds[i][1]) - float(house_data[j][1]),2) + pow(float(seeds[i][2]) - float(house_data[j][2]),2)
+                if (dist < 500):
+                    clustdist[i].append(j)
+
+
+
                 min_dist.append(dist)
     #        print(min_dist)
 
